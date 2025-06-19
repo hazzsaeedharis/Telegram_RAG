@@ -6,9 +6,17 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "7084382883:AAHv3Fne8CIFZ3_0KH9crlye-0J-J-u847A")
-TON_WALLET = os.getenv("TON_WALLET_ADDRESS", "YOUR_TON_WALLET_ADDRESS")
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:5001")
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TON_WALLET = os.getenv("TON_WALLET_ADDRESS")
+BACKEND_URL = os.getenv("BACKEND_URL")
+
+# Ensure all required environment variables are set
+if not TELEGRAM_TOKEN:
+    raise ValueError("TELEGRAM_BOT_TOKEN is not set in the .env file.")
+if not TON_WALLET:
+    raise ValueError("TON_WALLET_ADDRESS is not set in the .env file.")
+if not BACKEND_URL:
+    raise ValueError("BACKEND_URL is not set in the .env file.")
 
 # In-memory store for paid users (for demo; use DB for production)
 paid_users = set()
@@ -22,12 +30,12 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         f"""
 I can help you analyze Google Docs or files using AI!\n\n"
-        "1. Pay TON to unlock: Send TON to this wallet: {TON_WALLET}\n"
+        f"1. Pay TON to unlock: Send TON to this wallet: {TON_WALLET}\n"
         "2. After payment, send /pay <tx_hash> to unlock.\n"
         "3. Send a Google Docs link or upload a file.\n"
         "4. Ask questions about the document.\n\n"
         "Commands:\n/start - Welcome message\n/help - This help\n/about - About this bot\n/pay <tx_hash> - Verify your TON payment\n/clear - Clear your indexed data\n"
-        """
+        f"""
     )
 
 async def about_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
