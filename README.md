@@ -2,6 +2,10 @@
 
 **TelegramRAG is a Retrieval-Augmented Generation (RAG) application with a React frontend and a TON-gated Telegram bot, powered by LangChain, OpenAI, and Redis.**
 
+### 🎬 Live Demo
+
+[Watch a live demo of the project on YouTube](https://youtu.be/mfVSOJ89R9U)
+
 
 ## About The Project
 
